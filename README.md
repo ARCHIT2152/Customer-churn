@@ -1,142 +1,289 @@
-# Customer Churn Prediction using Machine Learning
+# Telco Customer Churn Prediction 📊
 
-## 📌 Overview
-Customer churn prediction is a common real-world machine learning problem where the goal is to identify customers who are likely to leave a service. Retaining existing customers is often more cost-effective than acquiring new ones, making churn prediction highly valuable for businesses such as telecom companies, SaaS platforms, and subscription-based services.
-
-In this project, a machine learning model is built to predict whether a customer will **churn (Yes)** or **stay (No)** based on customer demographics, service usage, contract details, and billing information.
+A Machine Learning project focused on predicting customer churn in a telecom company using classification algorithms such as Logistic Regression and Random Forest.
 
 ---
 
-## 🎯 Problem Statement
-To build a machine learning model that predicts customer churn using historical customer data and to evaluate the model using appropriate metrics suitable for imbalanced classification problems.
+# 📌 Project Overview
+
+Customer churn prediction helps telecom companies identify customers who are likely to discontinue their services. Predicting churn early allows companies to improve customer retention strategies and reduce revenue loss.
+
+This project uses the IBM Telco Customer Churn dataset and applies:
+- Data preprocessing
+- Feature engineering
+- Machine Learning models
+- Cross-validation
+- SHAP explainability
 
 ---
 
-## 📊 Dataset Information
-- **Dataset Name:** Telco Customer Churn Dataset  
-- **Source:** Kaggle  
-- **Target Variable:** `Churn` (Yes / No)
+# 🎯 Objectives
 
-### Dataset Features Include:
-- Customer demographics (gender, senior citizen, dependents)
-- Subscription details (tenure, contract type)
-- Services used (internet, streaming, tech support, etc.)
-- Billing information (monthly charges, total charges, payment method)
+- Predict whether a customer will churn or not
+- Compare multiple ML algorithms
+- Improve model accuracy while avoiding overfitting
+- Evaluate models using multiple performance metrics
+- Interpret model decisions using SHAP
 
 ---
 
-## 🧠 Learning Approach & Concepts Covered
+# 🛠 Technologies Used
 
-This project was designed to strengthen **machine learning fundamentals** while following **industry-standard practices**.
-
-### Concepts Applied:
-- Supervised Learning (Classification)
-- Binary Classification
-- Data Cleaning & Handling Missing Values
-- Feature Engineering
-- Pipelines and ColumnTransformer
-- Preventing Data Leakage
-- Model Evaluation with appropriate metrics
-- Cross-Validation
-- Model Comparison
-
----
-
-## ⚙️ Data Preprocessing
-
-Real-world datasets are rarely clean. The following preprocessing steps were applied:
-
-### 1. Handling Hidden Missing Values
-- The `TotalCharges` column contained empty strings instead of valid numeric values.
-- These were safely converted to `NaN` using:
-  ```python
-  pd.to_numeric(errors='coerce')
-## ⚙️ Data Preprocessing
-
-### 2. Feature Separation
-- Features (`X`) and target (`y`) were separated to avoid **data leakage**.
-
-### 3. Numerical Feature Processing
-- Missing values were imputed using **median**
-- Features were scaled using **StandardScaler**
-
-### 4. Categorical Feature Processing
-- Missing values were imputed using the **most frequent category**
-- Categorical variables were converted to numerical format using **One-Hot Encoding**
-- `handle_unknown='ignore'` was used to ensure robustness on unseen categories
-
-### 5. Pipeline-Based Preprocessing
-All preprocessing steps were handled inside a **scikit-learn Pipeline** combined with a **ColumnTransformer** to:
-- Ensure consistency
-- Prevent data leakage
-- Enable clean cross-validation and model comparison
-
----
-
-## 🤖 Models Used
-
-### 1️⃣ Logistic Regression (Baseline Model)
-- Used as an interpretable baseline model
-- Helped establish a reference performance
-
-### 2️⃣ Random Forest Classifier (Final Model)
-- Captured non-linear relationships in the data
-- Handled class imbalance using `class_weight='balanced'`
-- Achieved better overall performance compared to the baseline
-
----
-
-## 📏 Evaluation Metrics
-
-Since customer churn data is **imbalanced**, accuracy alone can be misleading.  
-Therefore, the following metrics were used:
-
-- **Precision**
-- **Recall**
-- **F1 Score** (primary metric)
-- **Confusion Matrix**
-- **Cross-Validation (5-Fold)**
-
-### Why F1 Score?
-F1-score provides a balance between precision and recall, making it suitable for imbalanced classification problems where both false positives and false negatives are important.
-
----
-
-## 📈 Results
-
-### Random Forest Performance
-- **Test F1 Score:** `0.57`
-- **Average Cross-Validation F1 Score (5-fold):** `0.60`
-
-The close alignment between test and cross-validation scores indicates good model generalization and minimal overfitting.
-
----
-
-## 🏁 Conclusion
-
-The Random Forest model outperformed Logistic Regression and demonstrated stable performance across cross-validation. Due to its ability to capture non-linear patterns and handle class imbalance effectively, Random Forest was selected as the final model for customer churn prediction.
-
-This project demonstrates a complete, end-to-end machine learning workflow following best practices used in real-world industry applications.
-
----
-
-## 🚀 Future Improvements
-- Hyperparameter tuning using GridSearchCV
-- Threshold optimization to improve recall for churned customers
-- Feature importance analysis
-- Deployment as a web application or API
-
----
-
-## 🛠️ Technologies Used
 - Python
 - Pandas
 - NumPy
 - Scikit-learn
 - Matplotlib
-- Seaborn
+- SHAP
 
 ---
 
-## 📌 Author
-**Archit Bankey**
+# 📂 Dataset
+
+Dataset Used:
+- IBM Telco Customer Churn Dataset
+
+Target Variable:
+- `Churn`
+  - Yes → Customer leaves company
+  - No → Customer stays
+
+---
+
+# ⚙️ Models Implemented
+
+## 1. Logistic Regression
+
+Used as a baseline classification model.
+
+### Why Logistic Regression?
+- Simple and interpretable
+- Performs well on binary classification
+- Good benchmark model
+
+---
+
+## 2. Random Forest Classifier
+
+Used for improved performance and feature importance analysis.
+
+### Why Random Forest?
+- Handles non-linear relationships
+- Reduces overfitting using ensemble learning
+- Provides better feature importance
+
+---
+
+# 🔄 Cross Validation Added
+
+## What Was Added?
+5-Fold Stratified Cross Validation was implemented.
+
+### Why?
+Instead of evaluating the model on only one train-test split, cross-validation:
+- checks model stability
+- reduces variance
+- improves reliability of accuracy scores
+
+### Benefits
+- Better generalization
+- More trustworthy performance metrics
+- Reduced chance of overfitting
+
+---
+
+# 📈 Performance Metrics Used
+
+The project evaluates models using:
+
+- Accuracy Score
+- F1-Score
+- Confusion Matrix
+- Classification Report
+- ROC-AUC Score
+
+---
+
+# 🚀 Changes Made in Updated Version
+
+The original notebook was improved with minimal code modifications.
+
+---
+
+## ✅ 1. Removed `customerID`
+
+### Why?
+`customerID` is unique for every customer and does not help prediction.
+
+### Impact
+- Reduced noise in model training
+- Improved model learning
+
+---
+
+## ✅ 2. Added Proper Preprocessing
+
+### Changes
+- Converted `TotalCharges` to numeric
+- Handled missing values
+- Applied encoding
+- Added scaling where required
+
+### Impact
+- Cleaner data
+- Better model performance
+- More stable predictions
+
+---
+
+## ✅ 3. Added Cross Validation
+
+### Why?
+To make evaluation more reliable.
+
+### Impact
+- Reduced overfitting
+- Better estimate of real-world performance
+
+---
+
+## ✅ 4. Added F1-Score
+
+### Why?
+Accuracy alone is not reliable for imbalanced datasets like churn prediction.
+
+### Impact
+F1-score balances:
+- Precision
+- Recall
+
+making evaluation more meaningful.
+
+---
+
+## ✅ 5. Tuned Random Forest Parameters
+
+### Parameters Updated
+
+```python
+n_estimators = 300
+max_depth = 10
+min_samples_split = 5
+min_samples_leaf = 2
+```
+
+### Why?
+To improve generalization and avoid overfitting.
+
+### Impact
+- More stable predictions
+- Better accuracy
+- Improved F1-score
+
+---
+
+# 📊 Accuracy Improvement
+
+| Model | Previous Accuracy | Updated Accuracy |
+|---|---|---|
+| Logistic Regression | ~78% | ~80.6% |
+| Random Forest | ~76-78% | ~80.4% |
+
+---
+
+# 📈 Final Model Performance
+
+## Logistic Regression
+- Accuracy: ~80.6%
+- F1 Score: ~0.60
+
+## Random Forest
+- Accuracy: ~80.4%
+- F1 Score: ~0.59
+
+These results fall within the ideal industry range for Telco Churn Prediction projects.
+
+---
+
+# 🧠 SHAP Explainability
+
+SHAP was used to explain model predictions.
+
+### Important Features Identified
+- Contract type
+- Tenure
+- Internet service
+- Monthly charges
+- Online security
+- Tech support
+
+### Benefit
+Helps understand:
+- why customers churn
+- which features influence predictions most
+
+---
+
+# 📌 Key Insights
+
+- Customers with month-to-month contracts are more likely to churn
+- Lower tenure customers churn more frequently
+- Customers without online security and tech support have higher churn probability
+- Fiber optic internet users showed higher churn tendency
+
+---
+
+# 📷 Example Output
+
+The project includes:
+- Confusion matrix
+- Accuracy comparison
+- SHAP summary plots
+- Feature importance graphs
+
+---
+
+# ▶️ How to Run
+
+## Install Dependencies
+
+```bash
+pip install pandas numpy scikit-learn matplotlib shap
+```
+
+## Run Notebook
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```bash
+customer_churn_updated.ipynb
+```
+
+---
+
+# 📌 Future Improvements
+
+Possible future enhancements:
+- XGBoost implementation
+- Hyperparameter tuning using GridSearchCV
+- Deep Learning models
+- Deployment using Flask/Streamlit
+- Real-time churn prediction dashboard
+
+---
+
+# 👨‍💻 Conclusion
+
+This project successfully predicts telecom customer churn using machine learning techniques while maintaining ideal accuracy and avoiding overfitting.
+
+The updated version improved:
+- model reliability
+- evaluation quality
+- interpretability
+- overall performance
+
+through preprocessing, cross-validation, and model tuning while keeping modifications to the original notebook minimal.
